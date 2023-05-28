@@ -1,0 +1,21 @@
+{
+  "name": "rnu",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "build/rnu.js",
+  "scripts": {
+    "transpile": "./node_modules/.bin/tsc",
+    "minify": "",
+    "build": "rimraf build/ && rimraf built-types/ && npm run transpile",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.0.4"
+  }
+}
