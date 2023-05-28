@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "build/rnu.js",
+  "main": "build/rnu.cjs",
   "scripts": {
+    "start": "node build/example.cjs",
     "transpile": "./node_modules/.bin/tsc",
     "minify": "",
     "build": "rimraf build/ && rimraf built-types/ && npm run transpile",
