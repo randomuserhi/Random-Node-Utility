@@ -1,3 +1,6 @@
 import * as os from "os"
 
-process.stdout.write("Hello World!\n");
+export function test()
+{
+    process.stdout.write("Hello from RNU!\n");
+};
