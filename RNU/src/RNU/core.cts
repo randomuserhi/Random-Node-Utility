@@ -39,12 +39,6 @@ export interface Core
     inherit(child: Function, base: Function): void;
 
     reflectConstruct<T extends Constructor, K extends T>(base: T, name: string, constructor: (...args: any[]) => void, argnames?: string[]): Core.ReflectConstruct<T, Prototype<K>>;
-
-    clearAttributes(element: HTMLElement): void;
-
-    eventTarget<T extends EventTarget>(target: T): void;
-
-    CustomEvent<T = any>(type: string, detail: T): CustomEvent<T>;
 }
 
 export declare namespace Core
@@ -462,32 +456,5 @@ export let core: Core = {
         };
 
         return definition; 
-    },
-
-    clearAttributes: function(element: HTMLElement): void
-    {
-        while(element.attributes.length > 0) element.removeAttribute(element.attributes[0].name);
-    },
-
-    eventTarget: function<T extends EventTarget>(target: T): void
-    {
-        // create a node for handling events with EventTarget
-        let node = document.createTextNode("");
-        let addEventListener: (type: string, callback: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) => void
-        = node.addEventListener.bind(node);
-        target.addEventListener = function (type: string, callback: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
-            let context = target;
-            if (isEventListener(callback))
-                addEventListener(type, ((e: CustomEvent) => { callback.call(context, e.detail); }) as EventListener, options);
-            else
-                addEventListener(type, ((e: CustomEvent) => { callback.handleEvent.call(context, e.detail); }) as EventListener, options);
-        };
-        target.removeEventListener = node.removeEventListener.bind(node);
-        target.dispatchEvent = node.dispatchEvent.bind(node);
-    },
-
-    CustomEvent: function(type: string, detail: any): CustomEvent
-    {
-        return new CustomEvent(type, { detail: detail });
     }
 };
